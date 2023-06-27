@@ -122,7 +122,7 @@ export default function AccountSelectPanel() {
           appId: "1763236047458975",
           cookie: true,
           xfbml: true,
-          version: "v11.0",
+          version: "v17.0",
         });
 
         window.FB.getLoginStatus(function (response) {
