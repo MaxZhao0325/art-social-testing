@@ -62,12 +62,12 @@ export default function AccountSelectPanel() {
   };
 
   const handleFacebookSignIn = () => {
-    window.location.href = "/api/auth/facebook";
+    initializeFacebookSDK();
   };
 
   const stackDirection = useBreakpointValue({ base: "column", md: "row" });
 
-  /////////////////////
+  ///////////////////// Facebook account authentication
   function initializeFacebookSDK() {
     function statusChangeCallback(response) {
       console.log(response);
@@ -76,7 +76,14 @@ export default function AccountSelectPanel() {
         console.log(response);
         testAPI(response.authResponse.accessToken); // Pass the access token
       } else {
-        window.FB.login();
+        window.FB.login(
+          function (response) {
+            // handle the response
+            console.log(response.authResponse.accessToken);
+          },
+          { scope: "public_profile,email" }
+        );
+
         console.log(`User not authenticated ${response}`);
       }
     }
