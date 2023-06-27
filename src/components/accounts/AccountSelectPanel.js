@@ -116,12 +116,6 @@ export default function AccountSelectPanel() {
       //   js.src = "https://connect.facebook.net/en_US/sdk.js";
       //   fjs.parentNode.insertBefore(js, fjs);
       // })(document, "script", "facebook-jssdk");
-      <script
-        async
-        defer
-        crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js"
-      ></script>;
 
       // Define window.fbAsyncInit
       window.fbAsyncInit = function () {
