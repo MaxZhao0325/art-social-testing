@@ -11,12 +11,6 @@ export default function Document() {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <script
-          async
-          defer
-          crossOrigin="anonymous"
-          src="https://connect.facebook.net/en_US/sdk.js"
-        />
       </Head>
       <body>
         <Main />
