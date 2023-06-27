@@ -70,6 +70,7 @@ export default function AccountSelectPanel() {
   /////////////////////
   function initializeFacebookSDK() {
     function statusChangeCallback(response) {
+      console.log(response);
       if (response.status === "connected") {
         // Logged into your webpage and Facebook.
         console.log(response);
