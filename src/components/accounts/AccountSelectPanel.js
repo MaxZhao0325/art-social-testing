@@ -90,7 +90,7 @@ export default function AccountSelectPanel() {
 
     function sendTokenToAPI(accessToken) {
       // Send the access token to your API
-      const response = await fetch("/api/callback/facebook", {
+      fetch("/api/callback/facebook", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
