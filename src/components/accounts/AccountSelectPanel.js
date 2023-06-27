@@ -75,7 +75,7 @@ export default function AccountSelectPanel() {
         console.log(response);
         testAPI(response.authResponse.accessToken); // Pass the access token
       } else {
-        console.log("User not authenticated", response);
+        console.log(`User not authenticated ${response}`);
       }
     }
 
