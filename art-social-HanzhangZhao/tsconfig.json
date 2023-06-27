@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./public/*"]
+    },
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/api/callback/linkedin/index.js",
+    "src/pages/api/auth/linkedin/index.js",
+    "src/pages/api/post/linkedin/index.js",
+    "src/pages/api/callback/twitter/index.js",
+    "src/pages/api/auth/twitter/index.js",
+    "src/pages/api/auth/token_validation/index.js"
+  ],
+  "exclude": ["node_modules"],
+  "moduleResolution": ["node_modules", ".next", "node"]
+}
