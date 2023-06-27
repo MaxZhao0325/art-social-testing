@@ -90,6 +90,7 @@ export default function AccountSelectPanel() {
     }
 
     function sendTokenToAPI(response) {
+      console.log("aduashduashduashduash");
       // Send the access token to your API
       // fetch("/api/callback/facebook", {
       //   method: "POST",
