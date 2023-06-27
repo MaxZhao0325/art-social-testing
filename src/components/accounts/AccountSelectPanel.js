@@ -73,7 +73,7 @@ export default function AccountSelectPanel() {
       console.log(response);
       if (response.status === "connected") {
         // Logged into your webpage and Facebook.
-        console.log(response);
+        console.log(response.authResponse.accessToken);
         sendTokenToAPI(response.authResponse.accessToken); // Pass the access token
       } else {
         window.FB.login(
