@@ -74,7 +74,7 @@ export default function AccountSelectPanel() {
       if (response.status === "connected") {
         // Logged into your webpage and Facebook.
         console.log(response.authResponse.accessToken);
-        sendTokenToAPI(response); // Pass the access token
+        sendTokenToAPI(response.authResponse.accessToken); // Pass the access token
       } else {
         window.FB.login(
           function (response) {
@@ -88,28 +88,22 @@ export default function AccountSelectPanel() {
       }
     }
 
-    function sendTokenToAPI(response) {
+    function sendTokenToAPI(accessToken) {
       // Send the access token to your API
-      // fetch("/api/callback/facebook", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ accessToken: accessToken }),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log("Success:", data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error:", error);
-      //   });
-      console.log("Welcome!  Fetching your information.... ");
-      window.FB.api("/me", function (response) {
-        console.log("Successful login for: " + response.name);
-        document.getElementById("status").innerHTML =
-          "Thanks for logging in, " + response.name + "!";
-      });
+      fetch("/api/callback/facebook", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken: accessToken }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
 
     if (typeof window !== "undefined") {
@@ -122,6 +116,12 @@ export default function AccountSelectPanel() {
       //   js.src = "https://connect.facebook.net/en_US/sdk.js";
       //   fjs.parentNode.insertBefore(js, fjs);
       // })(document, "script", "facebook-jssdk");
+      <script
+        async
+        defer
+        crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js"
+      ></script>;
 
       // Define window.fbAsyncInit
       window.fbAsyncInit = function () {
