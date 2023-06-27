@@ -2,9 +2,9 @@
 import axios from "axios";
 
 export default async (req, res) => {
-  const { access_token } = req.query;
+  const { accessToken } = req.body;
 
-  if (!access_token) {
+  if (!accessToken) {
     console.log("Access_token is required");
     res.redirect("/accounts");
   }
@@ -16,14 +16,14 @@ export default async (req, res) => {
   try {
     // Fetch user data
     const userProfileResponse = await axios.get(
-      `https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${access_token}`
+      `https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${accessToken}`
     );
 
     const { id, name, email, picture } = userProfileResponse.data;
 
     // Construct account object
     const account = {
-      access_token: access_token,
+      access_token: accessToken,
       user_id: id,
       email_address: email,
       full_name: name,
