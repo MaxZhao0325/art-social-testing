@@ -72,9 +72,10 @@ export default function AccountSelectPanel() {
     function statusChangeCallback(response) {
       if (response.status === "connected") {
         // Logged into your webpage and Facebook.
+        console.log(response);
         testAPI(response.authResponse.accessToken); // Pass the access token
       } else {
-        console.log("User not authenticated");
+        console.log("User not authenticated", response);
       }
     }
 
