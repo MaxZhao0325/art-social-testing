@@ -6,7 +6,7 @@ import {
   Stack,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import FB from "@rivercode/facebook-conversion-api-nextjs";
+// import FB from "@rivercode/facebook-conversion-api-nextjs";
 import React, { useEffect } from "react";
 
 import { useUserAccount } from "../../contexts/userContext";
