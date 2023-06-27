@@ -76,12 +76,13 @@ export default function AccountSelectPanel() {
         console.log(response);
         testAPI(response.authResponse.accessToken); // Pass the access token
       } else {
+        window.FB.login();
         console.log(`User not authenticated ${response}`);
       }
     }
 
     function testAPI(accessToken) {
-      FB.api("/me", function (response) {
+      window.FB.api("/me", function (response) {
         sendTokenToAPI(accessToken, response.name); // Send token to your API
       });
     }
