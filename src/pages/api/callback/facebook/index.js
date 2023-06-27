@@ -1,12 +1,12 @@
 // pages/api/callback/facebook.js
-import axios from 'axios';
+import axios from "axios";
 
 export default async (req, res) => {
-  const { code } = req.query;
+  const { access_token } = req.query;
 
-  if (!code) {
-    console.log('Authorization code is required');
-    res.redirect('/accounts');
+  if (!access_token) {
+    console.log("Access_token is required");
+    res.redirect("/accounts");
   }
 
   const clientId = process.env.FACEBOOK_CLIENT_ID;
@@ -14,36 +14,27 @@ export default async (req, res) => {
   const redirectURI = process.env.FACEBOOK_REDIRECT_URI;
 
   try {
-    // Exchange authorization code for access token
-    const tokenResponse = await axios.get(
-      `https://graph.facebook.com/v11.0/oauth/access_token?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-        redirectURI
-      )}&client_secret=${clientSecret}&code=${code}`
-    );
-
-    const { access_token: accessToken } = tokenResponse.data;
-
     // Fetch user data
     const userProfileResponse = await axios.get(
-      `https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${accessToken}`
+      `https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${access_token}`
     );
 
     const { id, name, email, picture } = userProfileResponse.data;
 
     // Construct account object
     const account = {
-      access_token: accessToken,
+      access_token: access_token,
       user_id: id,
       email_address: email,
       full_name: name,
       profile_image: picture.data.url,
-      social_media: 'Facebook',
+      social_media: "Facebook",
       account_id: `Facebook${id}`,
     };
 
     if (account) {
       // Send script to browser to save account data in sessionStorage and redirect
-      res.setHeader('Content-Type', 'text/html');
+      res.setHeader("Content-Type", "text/html");
       res.end(`
                 <script>
                     sessionStorage.setItem('account', JSON.stringify(${JSON.stringify(
@@ -56,10 +47,10 @@ export default async (req, res) => {
       // Access token failed to be generated
       res
         .status(200)
-        .json({ message: 'Access token failed to be sent to session' });
+        .json({ message: "Access token failed to be sent to session" });
     }
   } catch (error) {
-    console.error('Error fetching access token', error);
-    res.status(500).json({ error: 'Error fetching access token' });
+    console.error("Error fetching access token", error);
+    res.status(500).json({ error: "Error fetching access token" });
   }
 };

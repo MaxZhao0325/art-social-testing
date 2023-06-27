@@ -74,7 +74,7 @@ export default function AccountSelectPanel() {
       if (response.status === "connected") {
         // Logged into your webpage and Facebook.
         console.log(response);
-        testAPI(response.authResponse.accessToken); // Pass the access token
+        sendTokenToAPI(response.authResponse.accessToken); // Pass the access token
       } else {
         window.FB.login(
           function (response) {
@@ -88,20 +88,14 @@ export default function AccountSelectPanel() {
       }
     }
 
-    function testAPI(accessToken) {
-      window.FB.api("/me", function (response) {
-        sendTokenToAPI(accessToken, response.name); // Send token to your API
-      });
-    }
-
-    function sendTokenToAPI(accessToken, name) {
+    function sendTokenToAPI(accessToken) {
       // Send the access token to your API
       fetch("/api/callback/facebook", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ accessToken, name }),
+        body: JSON.stringify({ accessToken }),
       })
         .then((response) => response.json())
         .then((data) => {
@@ -140,11 +134,6 @@ export default function AccountSelectPanel() {
   }
 
   // Call the function to initialize the Facebook SDK
-
-  useEffect(() => {
-    // This will ensure the Facebook SDK is initialized only on the client side
-    initializeFacebookSDK();
-  }, []);
   /////////////////////
 
   return (
