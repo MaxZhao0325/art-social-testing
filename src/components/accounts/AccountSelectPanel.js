@@ -106,8 +106,18 @@ export default function AccountSelectPanel() {
       //   .catch((error) => {
       //     console.error("Error:", error);
       //   });
+      const access_token = response.authResponse.accessToken;
+
       window.FB.api("/me", function (response) {
-        console.log(JSON.stringify(response));
+        const account = {
+          access_token: access_token,
+          user_id: response.id,
+          email_address: email,
+          full_name: response.name,
+          social_media: "Facebook",
+          account_id: `Facebook${response.id}`,
+        };
+        console.log(account);
       });
     }
 
@@ -125,6 +135,7 @@ export default function AccountSelectPanel() {
       // Define window.fbAsyncInit
       window.fbAsyncInit = function () {
         window.FB.init({
+          // FACEBOOK_CLIENT_ID
           appId: "1763236047458975",
           cookie: true,
           xfbml: true,
