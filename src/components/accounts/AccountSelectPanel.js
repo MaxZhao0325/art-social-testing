@@ -69,27 +69,6 @@ export default function AccountSelectPanel() {
 
   ///////////////////// Facebook account authentication
   function initializeFacebookSDK() {
-    function statusChangeCallback(response) {
-      console.log(response);
-      if (response.status === "connected") {
-        // Logged into your webpage and Facebook.
-        console.log(response.authResponse.accessToken);
-        // sendTokenToAPI(response.authResponse.accessToken); // Pass the access token
-        sendTokenToAPI(response);
-      } else {
-        window.FB.login(
-          function (response) {
-            // handle the response
-            console.log("zxczczxbbczxmcb");
-            console.log(response);
-          },
-          { scope: "public_profile,email" }
-        );
-
-        console.log(`User not authenticated ${response}`);
-      }
-    }
-
     function sendTokenToAPI(response) {
       console.log("account is established and stored in localstorage");
 
@@ -142,7 +121,25 @@ export default function AccountSelectPanel() {
         );
 
         window.FB.getLoginStatus(function (response) {
-          statusChangeCallback(response);
+          if (response.status === "connected") {
+            // get the account info and store it
+            sendTokenToAPI(response);
+          } else {
+            // if not logined in, we ask the user to login
+            window.FB.login(
+              function (response) {
+                if (response.status === "connected") {
+                  // Logged into your webpage and Facebook.
+                  // store the account info
+                  console.log("finishing authentication");
+                  sendTokenToAPI(response);
+                } else {
+                  // The person is not logged into your webpage or we are unable to tell.
+                }
+              },
+              { scope: "public_profile,email" }
+            );
+          }
         });
       };
     }
