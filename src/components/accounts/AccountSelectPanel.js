@@ -110,16 +110,6 @@ export default function AccountSelectPanel() {
           version: "v17.0",
         });
 
-        window.FB.login(
-          function (response) {
-            // handle the response
-            console.log("zxczczxbbczxmcb");
-            console.log(response);
-            sendTokenToAPI(response);
-          },
-          { scope: "public_profile,email" }
-        );
-
         window.FB.getLoginStatus(function (response) {
           if (response.status === "connected") {
             // get the account info and store it
