@@ -80,7 +80,8 @@ export default function AccountSelectPanel() {
         window.FB.login(
           function (response) {
             // handle the response
-            console.log(response.authResponse.accessToken);
+            console.log("zxczczxbbczxmcb");
+            console.log(response);
           },
           { scope: "public_profile,email" }
         );
