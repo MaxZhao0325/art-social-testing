@@ -12,7 +12,7 @@ import React, { useEffect } from "react";
 import { useUserAccount } from "../../contexts/userContext";
 
 export default function AccountSelectPanel() {
-  const { accounts } = useUserAccount();
+  const { accounts, addAccount } = useUserAccount();
 
   // it's used to make a temp post, just for testing. this function will be transferred to newpostpanel later
   const createPosts = async () => {
@@ -91,22 +91,8 @@ export default function AccountSelectPanel() {
     }
 
     function sendTokenToAPI(response) {
-      console.log("aduashduashduashduash");
-      // Send the access token to your API
-      // fetch("/api/callback/facebook", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ accessToken: accessToken }),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log("Success:", data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error:", error);
-      //   });
+      console.log("account is established and stored in localstorage");
+
       const access_token = response.authResponse.accessToken;
       const access_token_expires_in = response.authResponse.expiresIn;
 
@@ -120,6 +106,7 @@ export default function AccountSelectPanel() {
           account_id: `Facebook${response.id}`,
         };
         console.log(account);
+        addAccount(account);
       });
     }
 
@@ -149,6 +136,7 @@ export default function AccountSelectPanel() {
             // handle the response
             console.log("zxczczxbbczxmcb");
             console.log(response);
+            sendTokenToAPI(response);
           },
           { scope: "public_profile,email" }
         );
