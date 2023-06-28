@@ -107,12 +107,13 @@ export default function AccountSelectPanel() {
       //     console.error("Error:", error);
       //   });
       const access_token = response.authResponse.accessToken;
+      const access_token_expires_in = response.authResponse.expiresIn;
 
       window.FB.api("/me", function (response) {
         const account = {
           access_token: access_token,
+          access_token_expires_in: access_token_expires_in,
           user_id: response.id,
-          email_address: email,
           full_name: response.name,
           social_media: "Facebook",
           account_id: `Facebook${response.id}`,
