@@ -2,10 +2,11 @@
 import axios from "axios";
 
 export default async (req, res) => {
-  const { accessToken } = req.body;
+  const { code } = req.query;
+  console.log(code);
 
-  if (!accessToken) {
-    console.log("Access_token is required");
+  if (!code) {
+    console.log("Authorization code is required");
     res.redirect("/accounts");
   }
 
@@ -14,6 +15,15 @@ export default async (req, res) => {
   const redirectURI = process.env.FACEBOOK_REDIRECT_URI;
 
   try {
+    // Exchange authorization code for access token
+    const tokenResponse = await axios.get(
+      `https://graph.facebook.com/v17.0/oauth/access_token?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        redirectURI
+      )}&client_secret=${clientSecret}&code=${code}`
+    );
+
+    const { access_token: accessToken } = tokenResponse.data;
+
     // Fetch user data
     const userProfileResponse = await axios.get(
       `https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${accessToken}`

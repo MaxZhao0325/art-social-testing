@@ -12,7 +12,7 @@ import React, { useEffect } from "react";
 import { useUserAccount } from "../../contexts/userContext";
 
 export default function AccountSelectPanel() {
-  const { accounts, addAccount } = useUserAccount();
+  const { accounts } = useUserAccount();
 
   // it's used to make a temp post, just for testing. this function will be transferred to newpostpanel later
   const createPosts = async () => {
@@ -62,78 +62,79 @@ export default function AccountSelectPanel() {
   };
 
   const handleFacebookSignIn = () => {
-    initializeFacebookSDK();
+    // initializeFacebookSDK();
+    window.location.href = "/api/auth/facebook";
   };
 
   const stackDirection = useBreakpointValue({ base: "column", md: "row" });
 
   ///////////////////// Facebook account authentication
-  function initializeFacebookSDK() {
-    function sendTokenToAPI(response) {
-      console.log("account is established and stored in localstorage");
+  // function initializeFacebookSDK() {
+  //   function sendTokenToAPI(response) {
+  //     console.log("account is established and stored in localstorage");
 
-      const access_token = response.authResponse.accessToken;
-      const access_token_expires_in = response.authResponse.expiresIn;
+  //     const access_token = response.authResponse.accessToken;
+  //     const access_token_expires_in = response.authResponse.expiresIn;
 
-      window.FB.api("/me", function (response) {
-        const account = {
-          access_token: access_token,
-          access_token_expires_in: access_token_expires_in,
-          user_id: response.id,
-          full_name: response.name,
-          social_media: "Facebook",
-          account_id: `Facebook${response.id}`,
-        };
-        console.log(account);
-        addAccount(account);
-      });
-    }
+  //     window.FB.api("/me", function (response) {
+  //       const account = {
+  //         access_token: access_token,
+  //         access_token_expires_in: access_token_expires_in,
+  //         user_id: response.id,
+  //         full_name: response.name,
+  //         social_media: "Facebook",
+  //         account_id: `Facebook${response.id}`,
+  //       };
+  //       console.log(account);
+  //       addAccount(account);
+  //     });
+  //   }
 
-    if (typeof window !== "undefined") {
-      (function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, "script", "facebook-jssdk");
+  //   if (typeof window !== "undefined") {
+  //     (function (d, s, id) {
+  //       var js,
+  //         fjs = d.getElementsByTagName(s)[0];
+  //       if (d.getElementById(id)) return;
+  //       js = d.createElement(s);
+  //       js.id = id;
+  //       js.src = "https://connect.facebook.net/en_US/sdk.js";
+  //       fjs.parentNode.insertBefore(js, fjs);
+  //     })(document, "script", "facebook-jssdk");
 
-      // Define window.fbAsyncInit
-      window.fbAsyncInit = function () {
-        window.FB.init({
-          // FACEBOOK_CLIENT_ID
-          appId: "1763236047458975",
-          cookie: true,
-          xfbml: true,
-          version: "v17.0",
-        });
+  //     // Define window.fbAsyncInit
+  //     window.fbAsyncInit = function () {
+  //       window.FB.init({
+  //         // FACEBOOK_CLIENT_ID
+  //         appId: "1763236047458975",
+  //         cookie: true,
+  //         xfbml: true,
+  //         version: "v17.0",
+  //       });
 
-        window.FB.getLoginStatus(function (response) {
-          if (response.status === "connected") {
-            // get the account info and store it
-            sendTokenToAPI(response);
-          } else {
-            // if not logined in, we ask the user to login
-            window.FB.login(
-              function (response) {
-                if (response.status === "connected") {
-                  // Logged into your webpage and Facebook.
-                  // store the account info
-                  console.log("finishing authentication");
-                  sendTokenToAPI(response);
-                } else {
-                  // The person is not logged into your webpage or we are unable to tell.
-                }
-              },
-              { scope: "public_profile,email" }
-            );
-          }
-        });
-      };
-    }
-  }
+  //       window.FB.getLoginStatus(function (response) {
+  //         if (response.status === "connected") {
+  //           // get the account info and store it
+  //           sendTokenToAPI(response);
+  //         } else {
+  //           // if not logined in, we ask the user to login
+  //           window.FB.login(
+  //             function (response) {
+  //               if (response.status === "connected") {
+  //                 // Logged into your webpage and Facebook.
+  //                 // store the account info
+  //                 console.log("finishing authentication");
+  //                 sendTokenToAPI(response);
+  //               } else {
+  //                 // The person is not logged into your webpage or we are unable to tell.
+  //               }
+  //             },
+  //             { scope: "public_profile,email" }
+  //           );
+  //         }
+  //       });
+  //     };
+  //   }
+  // }
 
   // Call the function to initialize the Facebook SDK
   /////////////////////

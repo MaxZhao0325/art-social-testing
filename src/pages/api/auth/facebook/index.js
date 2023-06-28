@@ -1,66 +1,18 @@
-// // pages/api/auth/facebook/index.js
+// pages/api/auth/facebook/index.js
 
-// export default (req, res) => {
-//   const clientId = process.env.FACEBOOK_CLIENT_ID;
-//   const redirectURI = process.env.FACEBOOK_REDIRECT_URI;
-//   const authorizationURL = 'https://www.facebook.com/v11.0/dialog/oauth';
+export default (req, res) => {
+  const clientId = process.env.FACEBOOK_CLIENT_ID;
+  const redirectURI = process.env.FACEBOOK_REDIRECT_URI;
+  const authorizationURL = "https://www.facebook.com/v17.0/dialog/oauth";
 
-//   const state = Buffer.from(
-//     Math.round(Math.random() * Date.now()).toString()
-//   ).toString('hex');
-//   const scope = encodeURIComponent('email,public_profile');
+  const state = Buffer.from(
+    Math.round(Math.random() * Date.now()).toString()
+  ).toString("hex");
+  const scope = encodeURIComponent("email,public_profile");
 
-//   const authorizationUrl = `${authorizationURL}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-//     redirectURI
-//   )}&state=${state}&scope=${scope}&response_type=code`;
+  const authorizationUrl = `${authorizationURL}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+    redirectURI
+  )}&state=${state}&scope=${scope}&response_type=code`;
 
-//   res.redirect(authorizationUrl);
-// };
-
-// import FB from '@rivercode/facebook-conversion-api-nextjs';
-
-// function statusChangeCallback(response) {
-//   // Called with the results from FB.getLoginStatus().
-//   console.log('statusChangeCallback');
-//   console.log(response); // The current login status of the person.
-//   if (response.status === 'connected') {
-//     // Logged into your webpage and Facebook.
-//     testAPI();
-//   } else {
-//     // Not logged into your webpage or we are unable to tell.
-//     document.getElementById('status').innerHTML =
-//       'Please log ' + 'into this webpage.';
-//   }
-// }
-
-// function checkLoginState() {
-//   // Called when a person is finished with the Login Button.
-//   FB.getLoginStatus(function (response) {
-//     // See the onlogin handler
-//     statusChangeCallback(response);
-//   });
-// }
-
-// window.fbAsyncInit = function () {
-//   FB.init({
-//     appId: '1763236047458975',
-//     cookie: true, // Enable cookies to allow the server to access the session.
-//     xfbml: true, // Parse social plugins on this webpage.
-//     version: '{api-version}', // Use this Graph API version for this call.
-//   });
-
-//   FB.getLoginStatus(function (response) {
-//     // Called after the JS SDK has been initialized.
-//     statusChangeCallback(response); // Returns the login status.
-//   });
-// };
-
-// function testAPI() {
-//   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-//   console.log('Welcome!  Fetching your information.... ');
-//   FB.api('/me', function (response) {
-//     console.log('Successful login for: ' + response.name);
-//     document.getElementById('status').innerHTML =
-//       'Thanks for logging in, ' + response.name + '!';
-//   });
-// }
+  res.redirect(authorizationUrl);
+};
