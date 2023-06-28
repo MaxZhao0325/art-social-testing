@@ -144,9 +144,14 @@ export default function AccountSelectPanel() {
           version: "v17.0",
         });
 
-        window.FB.logout(function (response) {
-          // user is now logged out
-        });
+        window.FB.login(
+          function (response) {
+            // handle the response
+            console.log("zxczczxbbczxmcb");
+            console.log(response);
+          },
+          { scope: "public_profile,email" }
+        );
 
         window.FB.getLoginStatus(function (response) {
           statusChangeCallback(response);
